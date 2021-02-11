@@ -1,0 +1,27 @@
+.Info{
+    font-size: 20px;
+    margin: 1px 0;
+    font-family: 'times,Times New Roman', Times, serif;  
+    letter-spacing: -1px;color: #444; 
+    padding: 100px 0;
+    margin-right: 90px;
+}
+.Info button{
+    margin: 4px;
+    width: 125px;
+}
+.col-sm-2{
+    margin-left: 0 !important;
+    max-width: 100%;
+}
+.array-bar{
+    width: 5px;
+  display: inline-block;
+  margin: 0 1px;
+}
+.Display{
+    margin: 2px 0;
+    width: 100%;
+    overflow: hidden;
+    width: 100px;
+}
