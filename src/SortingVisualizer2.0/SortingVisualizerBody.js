@@ -5,6 +5,8 @@ import AboutInsertionSort from "../AboutSorting/AboutInsertionSort";
 import AboutMergeSort from "../AboutSorting/AboutMergeSort";
 import {getInsertionSortAnimation} from "../SortingAlgorithms/InsertionSort.js";
 import {mergeSortAnimation} from "../SortingAlgorithms/mergeSort"
+import {QuickSortAnimation} from "../SortingAlgorithms/quickSort";
+import AboutQuickSort from "../AboutSorting/AboutQuickSort";
 const ANIMATION_SPEED_MS=1
 //var Length=100;
 
@@ -67,23 +69,23 @@ export default class SortingVisualizerBody extends React.Component{
         }
     }
     mergeSort(){
-        const animations = mergeSortAnimation(this.state.array);
+        let animations = mergeSortAnimation(this.state.array);
     for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const isColorChange = i % 3 !== 2;
+      let arrayBars = document.getElementsByClassName('array-bar');
+      let isColorChange = i % 3 !== 2;
       if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+        let [barOneIdx, barTwoIdx] = animations[i];
+        let barOneStyle = arrayBars[barOneIdx].style;
+        let barTwoStyle = arrayBars[barTwoIdx].style;
+        let color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
         setTimeout(() => {
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
         }, i * 5);
       } else {
         setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
+          let [barOneIdx, newHeight] = animations[i];
+          let barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight}px`;
         }, i * 5);
       }
@@ -91,9 +93,25 @@ export default class SortingVisualizerBody extends React.Component{
         
     }
 
+    quickSort(){
+        let animation=QuickSortAnimation(this.state.array);
+       for(let i=0;i<animation.length;i++){
+        let arrayBars = document.getElementsByClassName('array-bar');
+            let [barOne,bartwo,height1,height2]=animation[i];
+            setTimeout(()=>{
+                arrayBars[barOne].style.height=`${height1}px`;
+                arrayBars[bartwo].style.height=`${height2}px`;
+            },i*10);
+        }
+        
+       //console.log(this.state.array.length);
+       //for(let i=0;i<animation.length;i++)console.log(animation[i]);
+    }
+
     handleClick(id){
         if(id==="/insertionsort")this.insertionSort();
         else if(id==="/mergeSort")this.mergeSort();
+        else if(id==="/quickSort")this.quickSort();
     }
 
 
@@ -113,6 +131,7 @@ export default class SortingVisualizerBody extends React.Component{
     <Switch>
        <Route path="/insertionsort" component={AboutInsertionSort} render={(props)=>{this.insertionSort()}}/>
        <Route path="/mergeSort" component={AboutMergeSort}/>
+       <Route path="/quickSort" component={AboutQuickSort}/>
      </Switch>
      <button type="button" onClick={()=>this.resetArray()} className="btn btn-primary">Generate Array</button>
      <button type="button" className="btn btn-success" onClick={()=>this.handleClick(pathname)}>Sort</button>
