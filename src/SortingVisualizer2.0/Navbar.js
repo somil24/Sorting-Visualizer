@@ -17,7 +17,7 @@ function Navbar(){
           <Link className="nav-link active" aria-current="page" to={{pathname:"/insertionsort"}}>Insertion Sort</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link">Merge Sort</a>
+          <Link className="nav-link" to={{pathname:"/mergeSort"}}>Merge Sort </Link>
         </li>
         <li className="nav-item">
           <a className="nav-link"></a>

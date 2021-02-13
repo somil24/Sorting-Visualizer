@@ -2,7 +2,9 @@ import React from "react"
 import "./Sorting.css"
 import { Route, Switch, useParams } from 'react-router-dom';
 import AboutInsertionSort from "../AboutSorting/AboutInsertionSort";
+import AboutMergeSort from "../AboutSorting/AboutMergeSort";
 import {getInsertionSortAnimation} from "../SortingAlgorithms/InsertionSort.js";
+import {mergeSortAnimation} from "../SortingAlgorithms/mergeSort"
 const ANIMATION_SPEED_MS=1
 //var Length=100;
 
@@ -47,19 +49,51 @@ export default class SortingVisualizerBody extends React.Component{
     }
    
     insertionSort(){
-        const animation =getInsertionSortAnimation(this.state.array);
+        let animation =getInsertionSortAnimation(this.state.array);
         for(let i=0;i<animation.length;i++){
-            const arrayBars=document.getElementsByClassName("array-bar")
-            const [one,two,isChange,height1,height2]=animation[i]
+            let arrayBars=document.getElementsByClassName("array-bar")
+            let [one,two,isChange,height1,height2]=animation[i]
             if(isChange){
                 setTimeout(()=>{
-                    const Barone=arrayBars[one].style;
-                    const Bartwo=arrayBars[two].style;
+                    let Barone=arrayBars[one].style;
+                    let Bartwo=arrayBars[two].style;
                     Barone.height=`${height1}px`;
                     Bartwo.height=`${height2}px`;
+                    Barone.backgroundColor=PRIMARY_COLOR;
+                    Bartwo.backgroundColor=PRIMARY_COLOR;
                 },i*ANIMATION_SPEED_MS)
             }
+            
         }
+    }
+    mergeSort(){
+        const animations = mergeSortAnimation(this.state.array);
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const isColorChange = i % 3 !== 2;
+      if (isColorChange) {
+        const [barOneIdx, barTwoIdx] = animations[i];
+        const barOneStyle = arrayBars[barOneIdx].style;
+        const barTwoStyle = arrayBars[barTwoIdx].style;
+        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+        }, i * 5);
+      } else {
+        setTimeout(() => {
+          const [barOneIdx, newHeight] = animations[i];
+          const barOneStyle = arrayBars[barOneIdx].style;
+          barOneStyle.height = `${newHeight}px`;
+        }, i * 5);
+      }
+    }
+        
+    }
+
+    handleClick(id){
+        if(id==="/insertionsort")this.insertionSort();
+        else if(id==="/mergeSort")this.mergeSort();
     }
 
 
@@ -69,7 +103,7 @@ export default class SortingVisualizerBody extends React.Component{
 
     render(){
         const {array}=this.state;
-        const pathname = window.location.state
+        const pathname = window.location.pathname
         console.log(pathname)
      return( <>
 
@@ -77,10 +111,11 @@ export default class SortingVisualizerBody extends React.Component{
   <div className="row gx-10">
     <div className="col-md-3 Info">
     <Switch>
-       <Route path="/insertionsort" component={AboutInsertionSort}/>
+       <Route path="/insertionsort" component={AboutInsertionSort} render={(props)=>{this.insertionSort()}}/>
+       <Route path="/mergeSort" component={AboutMergeSort}/>
      </Switch>
      <button type="button" onClick={()=>this.resetArray()} className="btn btn-primary">Generate Array</button>
-     <button type="button" className="btn btn-success" onClick={()=>this.window.location.state.fun}>Sort</button>
+     <button type="button" className="btn btn-success" onClick={()=>this.handleClick(pathname)}>Sort</button>
     </div>
 
     <div className="col-md me-auto Diplay" id="display">
