@@ -8,6 +8,9 @@ import {getInsertionSortAnimation} from "../SortingAlgorithms/InsertionSort.js";
 import {mergeSortAnimation} from "../SortingAlgorithms/mergeSort"
 import {QuickSortAnimation} from "../SortingAlgorithms/quickSort";
 import AboutQuickSort from "../AboutSorting/AboutQuickSort";
+import bubbleSortAnimation from "../SortingAlgorithms/BubbleSort";
+import AboutBubbleSort from "../AboutSorting/AboutBubbleSort"
+
 const ANIMATION_SPEED_MS=1
 //var Length=100;
 
@@ -109,10 +112,25 @@ export default class SortingVisualizerBody extends React.Component{
        //for(let i=0;i<animation.length;i++)console.log(animation[i]);
     }
 
+    bubbleSort(){
+        let animation =bubbleSortAnimation(this.state.array);
+        for(let i=0;i<animation.length;i++){
+           
+            let arrayBars = document.getElementsByClassName('array-bar');
+                let [barOne,bartwo,height1,height2]=animation[i];
+                setTimeout(()=>{
+                    arrayBars[barOne].style.height=`${height1}px`;
+                    arrayBars[bartwo].style.height=`${height2}px`;
+                },i*3);
+            }
+    }
+
     handleClick(id){
         if(id==="/insertionsort")this.insertionSort();
         else if(id==="/mergeSort")this.mergeSort();
         else if(id==="/quickSort")this.quickSort();
+        else if(id==="/bubbleSort")this.bubbleSort();
+
     }
 
 
@@ -132,8 +150,10 @@ export default class SortingVisualizerBody extends React.Component{
     <Switch>
        <Route exact path="/Sorting-Visualizer.github.io/" component={SortingHome}/> 
        <Route path="/insertionsort" component={AboutInsertionSort} render={(props)=>{this.insertionSort()}}/>
+       <Route path="/bubbleSort" component={AboutBubbleSort}/>
        <Route path="/mergeSort" component={AboutMergeSort}/>
        <Route path="/quickSort" component={AboutQuickSort}/>
+       
      </Switch>
      <button type="button" onClick={()=>this.resetArray()} className="btn btn-primary">Generate Array</button>
      <button type="button" className="btn btn-success" onClick={()=>this.handleClick(pathname)}>Sort</button>
