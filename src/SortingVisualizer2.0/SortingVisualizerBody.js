@@ -130,7 +130,7 @@ export default class SortingVisualizerBody extends React.Component{
   <div className="row gx-10">
     <div className="col-md-3 Info">
     <Switch>
-       <Route path="/home" component={SortingHome}/>
+       <Route exact path="/" component={SortingHome}/>
        <Route path="/insertionsort" component={AboutInsertionSort} render={(props)=>{this.insertionSort()}}/>
        <Route path="/mergeSort" component={AboutMergeSort}/>
        <Route path="/quickSort" component={AboutQuickSort}/>
