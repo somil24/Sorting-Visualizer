@@ -53,7 +53,7 @@ export default class SortingVisualizerBody extends React.Component{
         this.setState({array})
         console.log(document.getElementById("display").offsetWidth)
     }
-   
+    
     insertionSort(){
         let animation =getInsertionSortAnimation(this.state.array);
         for(let i=0;i<animation.length;i++){
