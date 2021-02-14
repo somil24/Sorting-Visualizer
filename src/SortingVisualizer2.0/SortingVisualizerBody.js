@@ -1,6 +1,7 @@
 import React from "react"
 import "./Sorting.css"
 import { Route, Switch, useParams } from 'react-router-dom';
+import SortingHome from "../AboutSorting/SortingHome"
 import AboutInsertionSort from "../AboutSorting/AboutInsertionSort";
 import AboutMergeSort from "../AboutSorting/AboutMergeSort";
 import {getInsertionSortAnimation} from "../SortingAlgorithms/InsertionSort.js";
@@ -129,6 +130,7 @@ export default class SortingVisualizerBody extends React.Component{
   <div className="row gx-10">
     <div className="col-md-3 Info">
     <Switch>
+       <Route path="/home" component={SortingHome}/>
        <Route path="/insertionsort" component={AboutInsertionSort} render={(props)=>{this.insertionSort()}}/>
        <Route path="/mergeSort" component={AboutMergeSort}/>
        <Route path="/quickSort" component={AboutQuickSort}/>

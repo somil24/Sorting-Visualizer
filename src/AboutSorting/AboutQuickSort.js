@@ -3,8 +3,10 @@ import React from "react";
 function AboutQuickSort(){
     return(
         <div>
-            <p>Algorithm- </p>
+            <h1>Quick Sort</h1>
             <p>
+            Algorithm-
+            <br/>
             Step 1 − Choose the highest index value has pivot
             <br/>
             Step 2 − Take two variables to point left and right of the list excluding pivot
